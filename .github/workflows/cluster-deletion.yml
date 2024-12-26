@@ -21,4 +21,4 @@ jobs:
 
       # Step 3: Apply Terraform Changes
       - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
+        run: terraform destroy -auto-approve
