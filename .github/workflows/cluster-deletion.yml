@@ -16,8 +16,8 @@ jobs:
         uses: actions/checkout@v4
 
       # Step 2: Plan Terraform Changes
-      - name: Terraform Plan
-        run: terraform plan -out=tfplan
+      - name: Terraform Init
+        run: terraform init
 
       # Step 3: Apply Terraform Changes
       - name: Terraform Apply
