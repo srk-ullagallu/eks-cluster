@@ -1,4 +1,4 @@
-name: EKS Cluster
+name: EKS Cluster Deletion
 
 on:
   workflow_dispatch:
