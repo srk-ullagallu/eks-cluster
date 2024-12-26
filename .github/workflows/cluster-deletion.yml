@@ -15,10 +15,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Step 2: Plan Terraform Changes
-      - name: Terraform Plan
-        run: terraform plan -out=tfplan
+      
 
       # Step 3: Apply Terraform Changes
       - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve
