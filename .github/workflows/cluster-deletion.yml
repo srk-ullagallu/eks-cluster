@@ -1,20 +1,24 @@
-name: EKS Cluster Deletion
+name: EKS Cluster
 
 on:
     workflow_dispatch: 
 
 jobs:
   terraform:
-    name: Terraform Plan & Apply
+    name: Terraform Destroy
     runs-on: self-hosted
+
+   
 
     steps:
       # Step 1: Checkout Repository
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      
+      # Step 2: Plan Terraform Changes
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
 
       # Step 3: Apply Terraform Changes
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve tfplan
