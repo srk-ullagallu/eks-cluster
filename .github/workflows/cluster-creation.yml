@@ -27,6 +27,7 @@ jobs:
         run: |
           terraform fmt -check
           terraform validate
+        shell: /bin/bash -e {0}
 
       # Step 5: Plan Terraform Changes
       - name: Terraform Plan
