@@ -1,15 +1,12 @@
 name: EKS Cluster Creation
 
 on:
-    workflow_dispatch: 
+  workflow_dispatch:
 
-# ---- JOB 1: Terraform Plan ---- #
 jobs:
   terraform:
     name: Terraform Plan & Apply
     runs-on: self-hosted
-
-    
 
     steps:
       # Step 1: Checkout Repository
@@ -19,7 +16,7 @@ jobs:
       # Step 2: Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-
+       
 
       # Step 3: Initialize Terraform
       - name: Terraform Init
@@ -37,4 +34,5 @@ jobs:
 
       # Step 6: Apply Terraform Changes
       - name: Terraform Apply
+        if: success()  # Apply only if plan is successful
         run: terraform apply -auto-approve tfplan
