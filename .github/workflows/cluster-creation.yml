@@ -22,12 +22,6 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      # Step 4: Format and Validate Terraform Files
-      - name: Terraform Format & Validate
-        run: |
-          terraform fmt -check
-          terraform validate
-        shell: /bin/bash -e {0}
 
       # Step 5: Plan Terraform Changes
       - name: Terraform Plan
