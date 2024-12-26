@@ -1,0 +1,40 @@
+name: EKS Cluster Creation
+
+on:
+    workflow_dispatch: 
+
+# ---- JOB 1: Terraform Plan ---- #
+jobs:
+  terraform:
+    name: Terraform Plan & Apply
+    runs-on: ubuntu-latest
+
+    
+
+    steps:
+      # Step 1: Checkout Repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+
+      # Step 3: Initialize Terraform
+      - name: Terraform Init
+        run: terraform init
+
+      # Step 4: Format and Validate Terraform Files
+      - name: Terraform Format & Validate
+        run: |
+          terraform fmt -check
+          terraform validate
+
+      # Step 5: Plan Terraform Changes
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      # Step 6: Apply Terraform Changes
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
