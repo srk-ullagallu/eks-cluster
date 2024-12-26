@@ -1,24 +1,26 @@
 name: EKS Cluster
 
 on:
-    workflow_dispatch: 
+  workflow_dispatch:
 
 jobs:
   terraform:
     name: Terraform Destroy
     runs-on: self-hosted
 
-   
-
     steps:
       # Step 1: Checkout Repository
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Step 2: Plan Terraform Changes
+      # Step 2: Initialize Terraform
       - name: Terraform Init
         run: terraform init
 
-      # Step 3: Destroy Terraform Changes
+      # Step 3: Plan Destroy Changes
+      - name: Terraform Plan Destroy
+        run: terraform plan -destroy
+
+      # Step 4: Destroy Terraform Changes
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
