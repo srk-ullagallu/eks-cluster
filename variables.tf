@@ -1,2 +1,6 @@
-variable "env"{}
-variable "cluster_name"{}
+variable "env"{
+    default = "test"
+}
+variable "cluster_name"{
+    default = "siva"
+}
