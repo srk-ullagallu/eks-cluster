@@ -1,30 +1,53 @@
-locals{
-  name = "${var.env}-${var.cluster_name}"
-}
-resource "aws_eks_cluster" "example" {
-  name = local.name
-
-  access_config {
-    authentication_mode = "API"
+module "vpc" {
+  source               = "github.com/ullagallu123/Terraform//modules/VPC?ref=main"
+  vpc_cidr             = "192.168.0.0/16"
+  environment          = var.env
+  project_name         = "ECS-SPA"
+  az                   = ["ap-south-1a", "ap-south-1b"]
+  public_subnet_cidr   = ["192.168.1.0/24", "192.168.2.0/24"]
+  private_subnet_cidr  = ["192.168.11.0/24", "192.168.12.0/24"]
+  db_subnet_cidr       = ["192.168.21.0/24", "192.168.22.0/24"]
+  per_az_route_tables  = false
+  single_nat           = false
+  per_az_nat           = false
+  db_subnet_group      = true
+  enable_vpc_flow_logs = false
+  common_tags = {
+    Developer = "Sivaramakrishna"
+    Terraform = true
+  }
+  vpc_tags = {
+    "Component" = "VPC"
+  }
+  igw_tags = {
+    "Component" = "IGW"
+  }
+  public_subnet_tags = {
+    "Component" = "PublicSubnets"
+  }
+  private_subnet_tags = {
+    "Component" = "PrivateSubnets"
+  }
+  db_subnet_tags = {
+    "Component" = "DBSubnets"
+  }
+  db_subnet_group_tags = {
+    "Component" = "DB subnet group"
+  }
+  public_rt_tags = {
+    "Component" = "Public RT"
+  }
+  private_rt_tags = {
+    "Component" = "Private RT"
+  }
+  db_rt_tags = {
+    "Component" = "DB RT"
+  }
+  eip_tags = {
+    "Component" = "EIP"
+  }
+  nat_tags = {
+    "Component" = "NAT GW"
   }
 
-  role_arn = aws_iam_role.cluster.arn
-  version  = "1.30"
-
-  vpc_config {
-    subnet_ids = [
-      "subnet-0f91105ac5e421ff1",
-      "subnet-0eeff0ad570056c98"
-      
-    ]
-  }
-
-  # Ensure that IAM Role permissions are created before and deleted
-  # after EKS Cluster handling. Otherwise, EKS will not be able to
-  # properly delete EKS managed EC2 infrastructure such as Security Groups.
-  depends_on = [
-    aws_iam_role_policy_attachment.cluster_AmazonEKSClusterPolicy,
-  ]
 }
-
-
