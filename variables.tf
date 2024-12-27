@@ -2,6 +2,6 @@ variable "env"{
     default = "dev"
 }
 
-variable ""{
+variable "project"{
     default = "eks"
 }

@@ -17,9 +17,7 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      # Step 3: Plan Destroy Changes
-      - name: Terraform Plan Destroy
-        run: terraform plan -destroy
+     
 
       # Step 4: Destroy Terraform Changes
       - name: Terraform Destroy

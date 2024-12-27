@@ -2,7 +2,7 @@ module "vpc" {
   source               = "github.com/ullagallu123/Terraform//modules/VPC?ref=main"
   vpc_cidr             = "192.168.0.0/16"
   environment          = var.env
-  project_name         = "ECS-SPA"
+  project_name         = var.project
   az                   = ["ap-south-1a", "ap-south-1b"]
   public_subnet_cidr   = ["192.168.1.0/24", "192.168.2.0/24"]
   private_subnet_cidr  = ["192.168.11.0/24", "192.168.12.0/24"]
