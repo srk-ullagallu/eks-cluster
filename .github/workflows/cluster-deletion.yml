@@ -17,8 +17,6 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-     
-
       # Step 4: Destroy Terraform Changes
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
